@@ -124,6 +124,6 @@ Your app should look like this:
 <img class="step-images" src="/simple-todos/assets/new-screenshots/step06/showing-all.png"/>
 <img class="step-images" src="/simple-todos/assets/new-screenshots/step06/hiding-completed.png"/>
 
-> Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue-tutorial/tree/master/src/simple-todos/step06) 
+> Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step06) 
 
 In the next step we are going to include user access in your app.
