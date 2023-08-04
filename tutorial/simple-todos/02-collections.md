@@ -96,13 +96,21 @@ const tasks = autorun(() => TasksCollection.find({}).fetch()).result
 </template>
 ```
 
-Meteor skeletons are secure by default, but that is not what we want right now, so let's add `autopublish` package so that we can more easily prototype with out data:
-```bash
-meteor add autopublish
+But to see this data in the client, you need to publish it in the server. To do it, create a file called `tasksPublications.js` and add the following code:
+
+`imports/api/tasksPublications.js`
+```javascript
+import { Meteor } from 'meteor/meteor';
+import { TasksCollection } from '../db/TasksCollection';
+
+Meteor.publish('tasks', function publishTasks() {
+  return TasksCollection.find({ userId: this.userId });
+});
 ```
 
-This is only for prototyping and is not something to do in any application that you are going to deploy. We'll talk more about this in step 9.
-See how your app should look like now:
+If you want to learn more about how publications works, you can read the [Meteor Guide](https://docs.meteor.com/api/pubsub.html).
+
+Now, your app should look like this:
 
 <img class="step-images" src="/simple-todos/assets/step02-task-list.png"/>
 
