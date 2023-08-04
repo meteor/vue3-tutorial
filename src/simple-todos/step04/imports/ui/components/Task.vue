@@ -1,5 +1,5 @@
 <script setup>
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor';
 import { defineProps, ref, watch } from 'vue';
 
 const props = defineProps({
@@ -25,10 +25,10 @@ watch(
   <div class="flex items-center rounded px-4 py-2 mb-2">
     <li>
       <input
+        v-model="taskRef.checked"
         type="checkbox"
         readonly
         :checked="taskRef.checked"
-        v-model="taskRef.checked"
       />
     </li>
     <span
