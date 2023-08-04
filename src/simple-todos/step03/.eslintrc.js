@@ -4,6 +4,9 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parserOptions: {
+    ecmaVersion: 6,
+  },
   extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'prettier'],
   plugins: ['prettier'],
   rules: {

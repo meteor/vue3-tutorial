@@ -5,9 +5,9 @@ import { subscribe, autorun } from 'vue-meteor-tracker';
 import { TasksCollection } from '../api/TasksCollection';
 
 subscribe('tasks');
-const tasks = autorun(() =>
-  TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch(),
-).result;
+const tasks = autorun(() => {
+  return TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch();
+}).result;
 </script>
 
 <template>

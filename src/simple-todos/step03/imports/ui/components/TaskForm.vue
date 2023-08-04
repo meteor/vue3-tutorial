@@ -1,15 +1,11 @@
 <script setup>
+import { Meteor } from 'meteor/meteor';
 import { ref } from 'vue';
-import { TasksCollection } from '../../api/TasksCollection';
 
 const newTask = ref('');
 
 const addTask = () => {
-  TasksCollection.insert({
-    text: newTask.value.trim(),
-    createdAt: new Date(),
-  });
-
+  Meteor.call('tasks.insert', newTask.value.trim());
   newTask.value = '';
 };
 </script>
