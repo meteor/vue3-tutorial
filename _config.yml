@@ -25,7 +25,7 @@ sidebar_categories:
     - simple-todos/13-next-steps
 github_repo: 'meteor/vue-tutorial'
 
-url: http://vue-tutorial.meteor.com/
+url: https://vue3-tutorial.meteor.com/
 root: /
 
 source_dir: tutorial

@@ -116,6 +116,6 @@ Your app should look like this:
 
 <img class="step-images" src="/simple-todos/assets/new-screenshots/step03/newest-task.png"/>
 
-> Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue-tutorial/tree/master/src/simple-todos/step03) 
+> Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step03) 
 
 In the next step we are going to update your tasks state and provide a way for users to remove tasks.

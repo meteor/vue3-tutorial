@@ -1,16 +1,16 @@
 ## Meteor Vue Tutorial
 
-If you are looking for the tutorial, please go to [https://vue-tutorial.meteor.com](https://vue-tutorial.meteor.com) and check it there. 
+If you are looking for the tutorial, please go to [https://vue3-tutorial.meteor.com](https://vue3-tutorial.meteor.com) and check it there. 
 
 This repository is the place to check the code (`src` folder) and to make contributions. 
 
 Read in the tutorial home page where you should ask questions (spoiler: [Forums](https://forums.meteor.com) or [Slack](https://join.slack.com/t/meteor-community/shared_invite/enQtODA0NTU2Nzk5MTA3LWY5NGMxMWRjZDgzYWMyMTEyYTQ3MTcwZmU2YjM5MTY3MjJkZjQ0NWRjOGZlYmIxZjFlYTA5Mjg4OTk3ODRiOTc)).
 
-This is a [hexo](https://hexo.io) static site used to generate the [Meteor Vue Tutorial Docs](https://vue-tutorial.meteor.com).
+This is a [hexo](https://hexo.io) static site used to generate the [Meteor Vue Tutorial Docs](https://vue3-tutorial.meteor.com).
 
 ## Contributing
 
-We'd love your contributions! Please send us Pull Requests or open issues on [github](https://github.com/meteor/vue-tutorial). Also, read the [contribution guidelines](https://github.com/meteor/docs/blob/master/Contributing.md).
+We'd love your contributions! Please send us Pull Requests or open issues on [github](https://github.com/meteor/vue3-tutorial). Also, read the [contribution guidelines](https://github.com/meteor/docs/blob/master/Contributing.md).
 
 If you are making a larger contribution, you may need to run the site locally:
 
