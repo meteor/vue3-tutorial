@@ -1,6 +1,6 @@
 <script setup>
 import { Meteor } from 'meteor/meteor';
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   task: Object,

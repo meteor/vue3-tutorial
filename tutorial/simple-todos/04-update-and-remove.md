@@ -76,7 +76,7 @@ We also have a prop called `task` that is passed to the component. This prop is 
 ```javascript
 <script setup>
 import { Meteor } from 'meteor/meteor';
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { TasksCollection } from '../../api/TasksCollection';
 
 const props = defineProps({

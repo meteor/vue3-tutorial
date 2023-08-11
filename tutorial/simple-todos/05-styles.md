@@ -55,7 +55,7 @@ And, Task.vue:
     shadow-sm border border-gray-200 md:mr-8
   ">
     <li>
-      <input type="checkbox" readonly :checked="taskRef.checked" v-model="taskRef.checked" />
+      <input v-model="taskRef.checked" type="checkbox" readonly :checked="taskRef.checked" />
     </li>
     <span class="text-gray-600 pl-2" :class="{ 'text-gray-400 italic line-through': taskRef.checked }">
       {{ task.text }}

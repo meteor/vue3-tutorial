@@ -9,7 +9,7 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.6",
+    "@babel/runtime": "^7.22.10",
     "bcrypt": "^5.1.0",
     "meteor-node-stubs": "^1.2.1",
     "vue": "^3.2.45",
