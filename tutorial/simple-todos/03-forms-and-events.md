@@ -70,34 +70,60 @@ const tasks = autorun(() => TasksCollection.find({}).fetch()).result
 
 ## 3.3: Add Insert Operation
 
-Now you can edit the `addTask` function to insert a new task into the database.
+Now you can edit the `addTask` function to insert a new task into the database. To do it, we will need to implement Methods.
+
+Methods are basically RPC calls to the server, that allow you to execute some operation on the server side, in a secure way. We will talk more about it on step-08, but you can read more about Meteor Methods [here](https://guide.meteor.com/methods.html).
+
+To create your methods, you need to create a file called `tasksMethods.js`.
+
+`imports/api/tasksMethods.js`
+```javascript
+import { check } from 'meteor/check';
+import { TasksCollection } from '../db/TasksCollection';
+
+Meteor.methods({
+    'tasks.insert'(text) {
+        check(text, String);
+
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
+
+        TasksCollection.insert({
+            text,
+            createdAt: new Date,
+            userId: this.userId,
+        })
+    },
+});
+```
+
+Also, do not forget to import your methods on `main.js` server file.
+
+`server/main.js`
+```javascript
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { TasksCollection } from '../imports/api/TasksCollection'
+import "../imports/api/tasksPublications"
+import "../imports/api/tasksMethods"
+```
+
+Now, we need to call this method from our `TaskForm.vue` component.
 
 `imports/ui/components/TaskForm.vue`
 ```javascript
 ...
 
 const addTask = () => {
-    TasksCollection.insert({
-        text: newTask.value.trim(),
-        createdAt: new Date()
-    })
-
+    Meteor.call('tasks.insert', newTask.value.trim())
     newTask.value = ''
 }
 
 ...
 ```
 
-Also insert a date `createdAt` in your `task` document, so you know when each task was created.
-
-Inside the event, we are adding a task to the `tasks` collection by calling `TasksCollection.insert()`. We can assign any properties to the task object, such as the time created, since we don't ever have to define a schema for the collection.
-
-Now if we try to add anything to the collection we will get denied. For our prototyping purposes we'll add the insecure package to get around this for the moment:
-```bash
-meteor add insecure
-```
-
-Being able to insert anything into the database from the client isn't very secure, but it's okay for now. In step 8 we'll learn how we can make our app secure and restrict how data is inserted into the database.
+Inside the event, we are adding a task to the `tasks` collection by calling `Meteor.call()`. The first argument is the name of the method we want to call, and the second argument is the text of the task we want to add. We are also trimming the text to remove any extra spaces.
 
 ## 3.5: Show Newest Tasks First
 
@@ -107,7 +133,9 @@ Now you just need to make a change which will make users happy: we need to show 
 ```javascript
 ...
 
-const tasks = autorun(() => TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch()).result
+const tasks = autorun(() => {
+  return TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch();
+}).result;
 
 ...
 ```

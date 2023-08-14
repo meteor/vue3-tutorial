@@ -51,7 +51,8 @@ const toggleHideCompleted = () => {
         <span
           v-if="incompleteTasksCount > 0"
           class="text-sm font-light text-gray-600"
-          >({{ incompleteTasksCount }})</span
+        >
+          ({{ incompleteTasksCount }})</span
         >
       </h1>
 

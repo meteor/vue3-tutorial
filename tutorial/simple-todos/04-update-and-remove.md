@@ -30,6 +30,42 @@ Now, we need to add the v-model directive to the checkbox. This will allow us to
 
 ## 4.2: Toggle Checkbox
 
+Before change the UI, we need to implement the method to update the task document. So, update the `tasksMethods.js` file with the following code:
+
+```javascript
+import { check } from 'meteor/check';
+import { TasksCollection } from '../db/TasksCollection';
+
+Meteor.methods({
+    'tasks.insert'(text) {
+        check(text, String);
+
+        TasksCollection.insert({
+            text,
+            createdAt: new Date,
+            userId: this.userId,
+        })
+    },
+
+    'tasks.remove'(taskId) {
+        check(taskId, String);
+
+        TasksCollection.remove(taskId);
+    },
+
+    'tasks.setIsChecked'(taskId, checked) {
+        check(taskId, String);
+        check(checked, Boolean);
+
+        TasksCollection.update(taskId, {
+            $set: {
+                checked
+            }
+        });
+    }
+});
+```
+
 Now you can update your task document toggling its `checked` field.
 
 You need to add a `watch` to the `checked` field of the task document. This will allow us to update the task document when the checkbox is toggled.
@@ -39,7 +75,8 @@ We also have a prop called `task` that is passed to the component. This prop is 
 `imports/ui/components/Task.vue`
 ```javascript
 <script setup>
-import { defineProps, ref, watch } from 'vue';
+import { Meteor } from 'meteor/meteor';
+import { ref, watch } from 'vue';
 import { TasksCollection } from '../../api/TasksCollection';
 
 const props = defineProps({
@@ -48,29 +85,19 @@ const props = defineProps({
 
 const taskRef = ref(props.task);
 
-const deleteTask = () => {
-  TasksCollection.remove(taskRef.value._id);
-}
-
 watch(
   () => taskRef.value.checked,
   (newCheckedValue) => {
-    TasksCollection.update(taskRef.value._id, {
-      $set: {
-        checked: newCheckedValue
-      }
-    });
+    Meteor.call('tasks.setIsChecked', taskRef.value._id, newCheckedValue);
   },
   { immediate: true }
 );
 </script>
 ```
 
-We call `TasksCollection.update` to check off a task.
-
 The `update` function on a collection takes two arguments. The first is a selector that identifies a subset of the collection, and the second is an update parameter that specifies what should be done to the matched objects.
 
-In this case, the selector is just the `_id` of the relevant task. The update parameter uses `$set` to toggle the `checked` field, which will represent whether the task has been completed.
+In this case, the selector is just the `_id` of the relevant task. The update parameter uses `$set`, on our method, to toggle the `checked` field, which will represent whether the task has been completed.
 
 Your app should look like this:
 
@@ -101,7 +128,7 @@ Now add the removal logic into methods:
 ...
 
 const deleteTask = () => {
-  TasksCollection.remove(taskRef.value._id);
+  Meteor.call('tasks.remove', taskRef.value._id);
 }
 
 ...

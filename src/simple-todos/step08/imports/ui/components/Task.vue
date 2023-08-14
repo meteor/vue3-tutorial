@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { Meteor } from 'meteor/meteor';
 
 const props = defineProps({
@@ -27,10 +27,10 @@ watch(
   >
     <li>
       <input
+        v-model="taskRef.checked"
         type="checkbox"
         readonly
         :checked="taskRef.checked"
-        v-model="taskRef.checked"
       />
     </li>
     <span

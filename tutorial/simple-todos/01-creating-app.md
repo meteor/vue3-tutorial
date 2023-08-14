@@ -133,9 +133,12 @@ This file will export a Vue component called `Task` that will represent one task
 `imports/ui/components/Task.vue`
 ```javascript
 <script setup>
-import { defineProps } from 'vue'
-
-defineProps(['task'])
+defineProps({
+  task: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
 <template>

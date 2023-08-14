@@ -22,7 +22,7 @@ watch(
   { immediate: true },
 );
 
-subscribe('tasks');
+const tasksSubscribe = subscribe('tasks');
 const tasks = autorun(() => {
   return TasksCollection.find(
     hideCompleted.value ? { checked: { $ne: true } } : {},
@@ -75,6 +75,12 @@ const toggleHideCompleted = () => {
             <span v-if="hideCompleted">Show all</span>
             <span v-else>Hide completed</span>
           </button>
+        </div>
+        <div
+          v-if="!tasksSubscribe.ready.value"
+          class="flex items-center justify-center h-64"
+        >
+          <p class="text-gray-600">Loading...</p>
         </div>
         <ul class="list-none list-inside pt-4 md:w-96">
           <Task v-for="task of tasks" :key="task._id" :task="task" />
