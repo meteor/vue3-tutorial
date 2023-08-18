@@ -16,7 +16,6 @@ Create a new file `TaskForm.vue` in your `ui` folder.
 ```javascript
 <script setup>
 import { ref } from 'vue'
-import { TasksCollection } from '../../api/TasksCollection';
 
 const newTask = ref('')
 
@@ -28,8 +27,9 @@ const addTask = () => {
 <template>
     <form @submit.prevent="addTask">
         <input
+            v-model="newTask"
             class=" border border-gray-300 rounded-md py-2 px-4 mr-2 text-gray-600 text-sm focus:outline-none focus:border-gray-400 focus:ring-0"
-            type="text" v-model="newTask" placeholder="Type to add new tasks" />
+            type="text" placeholder="Type to add new tasks" />
         <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type="submit">Add Task</button>
     </form>
 </template>
@@ -78,16 +78,13 @@ To create your methods, you need to create a file called `tasksMethods.js`.
 
 `imports/api/tasksMethods.js`
 ```javascript
+import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { TasksCollection } from '../db/TasksCollection';
 
 Meteor.methods({
     'tasks.insert'(text) {
         check(text, String);
-
-        if (!this.userId) {
-            throw new Meteor.Error('Not authorized.');
-        }
 
         TasksCollection.insert({
             text,
@@ -103,8 +100,7 @@ Also, do not forget to import your methods on `main.js` server file.
 `server/main.js`
 ```javascript
 import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
-import { TasksCollection } from '../imports/api/TasksCollection'
+import { TasksCollection } from '../imports/db/TasksCollection'
 import "../imports/api/tasksPublications"
 import "../imports/api/tasksMethods"
 ```

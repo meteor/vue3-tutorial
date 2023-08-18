@@ -33,7 +33,7 @@ You can see that it reads from `hideCompleted`. We'll need to initialize the val
 `imports/ui/App.vue`
 ```javascript
 ...
-
+import { ref } from 'vue';
 import { TasksCollection } from '../api/TasksCollection'
 
 const hideCompleted = ref(false)

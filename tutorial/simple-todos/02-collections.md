@@ -10,9 +10,9 @@ In this step we will implement all the necessary code to have a basic collection
 
 ## 2.1: Create Tasks Collection
 
-We can create a new collection to store our tasks by creating a new file at `imports/api/TasksCollection.js` which instantiates a new Mongo collection and exports it.
+We can create a new collection to store our tasks by creating a new file at `imports/db/TasksCollection.js` which instantiates a new Mongo collection and exports it.
 
-`imports/api/TasksCollection.js`
+`imports/db/TasksCollection.js`
 ```js
 import { Mongo } from 'meteor/mongo';
  
@@ -29,7 +29,7 @@ You can delete the `links.js` file in this folder as we are not going to use thi
 
 For our collection to work you need to import it in the server so it sets some plumbing up. 
 
-You can either use `import "./imports/api/TasksCollection"` or `import { TasksCollection } from "./imports/api/TasksCollection"` if you are going to use on the same file, but make sure it is imported.
+You can either use `import "./imports/db/TasksCollection"` or `import { TasksCollection } from "./imports/db/TasksCollection"` if you are going to use on the same file, but make sure it is imported.
 
 Now it is easy to check if there is data or not in our collection, otherwise we can insert some sample data easily as well.
 
@@ -38,7 +38,7 @@ You don't need to keep the old content of `server/main.js`.
 `server/main.js`
 ```js
 import { Meteor } from 'meteor/meteor';
-import { TasksCollection } from '../imports/api/TasksCollection';
+import { TasksCollection } from '../imports/db/TasksCollection';
 
 const insertTask = taskText => TasksCollection.insert({ text: taskText });
  
@@ -78,7 +78,7 @@ First we need to implement a subscription at the `App` component to get the task
 <script setup>
 import Task from './components/Task.vue'
 import { subscribe, autorun } from 'vue-meteor-tracker'
-import { TasksCollection } from '../api/TasksCollection'
+import { TasksCollection } from '../db/TasksCollection'
 
 subscribe('tasks')
 const tasks = autorun(() => TasksCollection.find({}).fetch()).result
@@ -106,6 +106,13 @@ import { TasksCollection } from '../db/TasksCollection';
 Meteor.publish('tasks', function publishTasks() {
   return TasksCollection.find({ userId: this.userId });
 });
+```
+
+Also, do not forget to import it on the server:
+
+`server/main.js`
+```javascript
+import '../imports/api/tasksPublications';
 ```
 
 If you want to learn more about how publications works, you can read the [Meteor Guide](https://docs.meteor.com/api/pubsub.html).
