@@ -4,7 +4,7 @@ title: Home
 
 The Meteor Vue Tutorial is where to start learning the basics of Meteor with Vue.
 
-If you want to know more about Meteor check our [website](https://www.meteor.com)
+If you want to know more about Meteor check our [website](https://www.meteor.com).
 
 A few tips before you start:
 - If you want to check the final code of each step, you can always go to the [`src`](https://github.com/meteor/vue3-tutorial/tree/master/src) folder.
