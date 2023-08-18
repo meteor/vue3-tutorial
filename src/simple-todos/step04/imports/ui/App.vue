@@ -2,7 +2,7 @@
 import Task from './components/Task.vue';
 import TaskForm from './components/TaskForm.vue';
 import { subscribe, autorun } from 'vue-meteor-tracker';
-import { TasksCollection } from '../api/TasksCollection';
+import { TasksCollection } from '../db/TasksCollection';
 
 subscribe('tasks');
 const tasks = autorun(() =>

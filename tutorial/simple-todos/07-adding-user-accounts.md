@@ -28,7 +28,7 @@ Now you can create a default user for our app, we are going to use `meteorite` a
 ```javascript
 import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
-import { TasksCollection } from '../imports/api/TasksCollection'
+import { TasksCollection } from '../imports/db/TasksCollection'
 
 ...
 
@@ -71,16 +71,16 @@ const submitForm = (event) => {
 </script>
 
 <template>
-    <form @submit="submitForm " class="flex flex-col justify-center items-center w-full max-w-md mx-auto my-8">
+    <form class="flex flex-col justify-center items-center w-full max-w-md mx-auto my-8" @submit="submitForm">
         <div>
             <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-            <input type="text" name="username" placeholder="Username" required v-model="username"
+            <input v-model="username" type="text" name="username" placeholder="Username" required
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
 
         <div class="mt-4">
             <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-            <input type="password" name="password" placeholder="Password" required v-model="password"
+            <input v-model="password" type="password" name="password" placeholder="Password" required
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
 
@@ -107,6 +107,8 @@ We'll need a `ref`, that will be used to know if the user is logged in or not, a
 `imports/ui/App.vue`
 ```javascript
 ...
+import { Meteor } from 'meteor/meteor';
+import { ref, watch } from 'vue';
 
 const hideCompleted = ref(false)
 const isLogged = ref(false)
@@ -173,7 +175,9 @@ Make sure you restart the server after this change so `Meteor.startup` block wil
 ```javascript
 import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
-import { TasksCollection } from '../imports/api/TasksCollection'
+import { TasksCollection } from '../imports/db/TasksCollection';
+import '../imports/api/tasksPublications';
+import '../imports/api/tasksMethods';
 
 const insertTask = (taskText, user) =>
   TasksCollection.insert({
@@ -215,7 +219,7 @@ See that we are using a new field called `userId` with our user `_id` field, we 
 
 Now you can filter the tasks in the UI by the authenticated user. Use the user `_id` to add the field `userId` to your Mongo selector when getting the tasks from Mini Mongo.
 
-Your ´tasks´ function should look like this:
+Your `tasks` function should look like this:
 
 `imports/ui/App.vue`
 ```javascript
@@ -229,13 +233,12 @@ import Task from './components/Task.vue'
 import TaskForm from './components/TaskForm.vue';
 import LoginForm from './components/LoginForm.vue';
 import { subscribe, autorun } from 'vue-meteor-tracker'
-import { TasksCollection } from '../api/TasksCollection'
+import { TasksCollection } from '../db/TasksCollection'
 
 const hideCompleted = ref(false)
 const isLogged = ref(false)
 
 const user = autorun(() => Meteor.userId()).result
-const logout = () => Meteor.logout()
 
 watch(
   () => user.value,
@@ -267,29 +270,6 @@ const toggleHideCompleted = () => {
 ...
 ```
 
-Also update the `insert` call to include the field `userId` in the `TaskForm`. You should pass the user from the `App` component to the `TaskForm`.
-
-`imports/ui/components/TaskForm.vue`
-```javascript
-...
-
-const newTask = ref('')
-
-const user = Meteor.user()
-
-const addTask = () => {
-    TasksCollection.insert({
-        text: newTask.value.trim(),
-        createdAt: new Date(),
-        userId: user._id
-    })
-
-    newTask.value = ''
-}
-
-...
-```
-
 ## 7.8: Log out
 
 We also can better organize our tasks by showing the username of the owner below our app bar. You can include a new `button` right after our `h1`.
@@ -316,6 +296,16 @@ const logout = () => Meteor.logout()
 </button>
 
 ...
+```
+
+Now that we are logged, we can create a check on the server side to make sure that only the owner of a task may delete, update and add new tasks.
+
+We can make it just adding the code below to each operation on `tasksMethods`:
+
+```javascript
+if (!this.userId) {
+      throw new Meteor.Error('Not authorized.');
+    }
 ```
 
 Phew! You have done quite a lot in this step. Authenticated the user, set the user in the tasks and provided a way for the user to log out.

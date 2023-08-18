@@ -17,8 +17,7 @@ Now, we need to add the v-model directive to the checkbox. This will allow us to
 <template>
   <div class="flex items-center rounded px-4 py-2 mb-2">
     <li>
-      <input type="checkbox" readonly :checked="taskRef.checked"
-       v-model="taskRef.checked" />
+      <input v-model="taskRef.checked" type="checkbox" readonly :checked="taskRef.checked" />
     </li>
     <span class="text-gray-600 pl-2" :class="{ 'text-gray-400 italic line-through': taskRef.checked }">
       {{ task.text }}
@@ -33,6 +32,8 @@ Now, we need to add the v-model directive to the checkbox. This will allow us to
 Before change the UI, we need to implement the method to update the task document. So, update the `tasksMethods.js` file with the following code:
 
 ```javascript
+import { Meteor } from 'meteor/meteor';
+
 import { check } from 'meteor/check';
 import { TasksCollection } from '../db/TasksCollection';
 
@@ -77,7 +78,6 @@ We also have a prop called `task` that is passed to the component. This prop is 
 <script setup>
 import { Meteor } from 'meteor/meteor';
 import { ref, watch } from 'vue';
-import { TasksCollection } from '../../api/TasksCollection';
 
 const props = defineProps({
   task: Object
@@ -86,7 +86,7 @@ const props = defineProps({
 const taskRef = ref(props.task);
 
 watch(
-  () => taskRef.value.checked,
+  () => !!taskRef.value.checked,
   (newCheckedValue) => {
     Meteor.call('tasks.setIsChecked', taskRef.value._id, newCheckedValue);
   },
@@ -112,11 +112,13 @@ First add a button after text in your `Task` component and receive a callback fu
 `imports/ui/components/Task.vue`
 ```javascript
 ...
+{{ task.text }}
+</span>
 
 <button 
 class="ml-auto bg-red-500 hover:bg-red-600 text-white font-bold py-0.5 px-2 rounded"
 @click="deleteTask"> x 
-<button>
+</button>
 
 ...
 ```

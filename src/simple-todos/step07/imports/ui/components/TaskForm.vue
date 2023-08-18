@@ -5,7 +5,7 @@ import { ref } from 'vue';
 const newTask = ref('');
 
 const addTask = () => {
-  Meteor.call('tasks.insert', newTask.value);
+  Meteor.call('tasks.insert', newTask.value.trim());
   newTask.value = '';
 };
 </script>
