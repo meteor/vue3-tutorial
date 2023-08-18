@@ -219,7 +219,7 @@ See that we are using a new field called `userId` with our user `_id` field, we 
 
 Now you can filter the tasks in the UI by the authenticated user. Use the user `_id` to add the field `userId` to your Mongo selector when getting the tasks from Mini Mongo.
 
-Your ´tasks´ function should look like this:
+Your `tasks` function should look like this:
 
 `imports/ui/App.vue`
 ```javascript

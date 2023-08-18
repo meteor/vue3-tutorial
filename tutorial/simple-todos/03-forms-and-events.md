@@ -49,7 +49,7 @@ Then we can simply add this to our `App` component above your list of tasks:
 import Task from './components/Task.vue'
 import TaskForm from './components/TaskForm.vue';
 import { subscribe, autorun } from 'vue-meteor-tracker'
-import { TasksCollection } from '../api/TasksCollection'
+import { TasksCollection } from '../db/TasksCollection'
 
 subscribe('tasks')
 const tasks = autorun(() => TasksCollection.find({}).fetch()).result
@@ -110,6 +110,7 @@ Now, we need to call this method from our `TaskForm.vue` component.
 `imports/ui/components/TaskForm.vue`
 ```javascript
 ...
+import { Meteor } from 'meteor/meteor';
 
 const addTask = () => {
     Meteor.call('tasks.insert', newTask.value.trim())
