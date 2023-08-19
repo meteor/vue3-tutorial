@@ -19,7 +19,7 @@ import { Mongo } from 'meteor/mongo';
 export const TasksCollection = new Mongo.Collection('tasks');
 ```
 
-Notice that we stored the file in the `imports/api` directory, which is a place to store API-related code, like publications and methods. You can name this folder as you want, this is just choice.
+Notice that we stored the file in the `imports/db` directory, which is a place to store DB-related code, like publications and methods. You can name this folder as you want, this is just choice.
 
 You can delete the `links.js` file in this folder as we are not going to use this collection.
 

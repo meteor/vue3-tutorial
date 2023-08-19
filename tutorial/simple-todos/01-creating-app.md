@@ -17,7 +17,7 @@ meteor create --vue simple-todos-vue
 
 Meteor will create all the necessary files for you. 
 
-The files located in the `client` directory are setting up your client side (web), you can see for example `client/main.jsx` where Meteor is rendering your App main component into the HTML.
+The files located in the `client` directory are setting up your client side (web), you can see for example `client/main.js` where Meteor is rendering your App main component into the HTML.
 
 Also, check the `server` directory where Meteor is setting up the server side (Node.js), you can see the `server/main.js` is initializing your MongoDB database with some data. You don't need to install MongoDB as Meteor provides an embedded version of it ready for you to use.
 
@@ -34,7 +34,7 @@ Your Vue code will be located inside the `imports/ui` directory, and `App.vue` f
 Take a quick look in all the files created by Meteor, you don't need to understand them now, but it's good to know where they are.
 
 ## 1.3: Install prettier and eslint
-Vue do not have native support on vscode for example. To configure Vue on your favorite IDE you'll need to install and configure prettier and eslint.
+Vue do not have native support on vscode for example. To configure Vue on your favorite IDE you'll need to install and configure prettier and eslint. Theses tools will help you to keep your code clean and organized by formatting your code and showing you some errors and warnings based on your configuration. Eslint will identify problematic patterns and prettier will format your code.
 
 To install prettier and eslint, run:
 ```
@@ -83,7 +83,7 @@ And also create a file called `.prettierrc` and paste the code bellow.
 ```
 If you use vscode, you will need to install the extensions for prettier and eslint. And then, restart the window.
 
-## 1.4: Clean Ui folder
+## 1.4: Clean UI folder
 
 Let's delete some files that we don't need for now. Open your `imports/ui` folder and remove:
 - About.vue
@@ -129,8 +129,7 @@ Also, we need to fix the `App` component, because we're importing a component th
 ```
 
 ## 1.5: Create Task Component
-
-Create a new file called `Task.vue` in your `ui/components` folder.
+We will store all our Vue components inside the `ui/components` folder. So, let's create this folder and create a file called `Task.vue` inside it.
 
 This file will export a Vue component called `Task` that will represent one task in your To-Do list. 
 
