@@ -111,7 +111,7 @@ const incompleteTasksCount = autorun(() => {
 ...
 
 <h1 class="text-4xl font-bold text-gray-800 my-4">🚀 To-Do List
-  <span v-if="incompleteTasksCount > 0" class="text-sm font-light text-gray-600">({{ incompleteTasksCount }})</span>
+  <span v-if="incompleteTasksCount > 0" class="text-lg font-light text-gray-600">({{ incompleteTasksCount }})</span>
 </h1>
 
 ...

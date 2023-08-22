@@ -10,7 +10,7 @@ In this step we will implement all the necessary code to have a basic collection
 
 ## 2.1: Create Tasks Collection
 
-We can create a new collection to store our tasks by creating a new file at `imports/db/TasksCollection.js` which instantiates a new Mongo collection and exports it.
+We can create a new collection to store our tasks by creating a new folder called `db` inside `imports`. Then, create a file called `TasksCollection.js` which instantiates a new Mongo collection and exports it.
 
 `imports/db/TasksCollection.js`
 ```js
@@ -21,7 +21,7 @@ export const TasksCollection = new Mongo.Collection('tasks');
 
 Notice that we stored the file in the `imports/db` directory, which is a place to store DB-related code, like publications and methods. You can name this folder as you want, this is just choice.
 
-You can delete the `links.js` file in this folder as we are not going to use this collection.
+You can delete the `links.js` file in the `imports/api` folder as we are not going to use this collection.
 
 > You can read more about app structure and imports/exports [here](http://guide.meteor.com/structure.html).
 
@@ -136,9 +136,6 @@ See your database:
 You can double-click your collection to see the documents stored on it:
 
 <img class="step-images" src="/simple-todos/assets/new-screenshots/step02/nosql-tasks-query.png"/>
-
-
-But wait, how my tasks are coming from the server to the client? We are going to explain this later, in the step about Publications and Subscriptons. What you need to know now is that you are publishing all the data from the database to the client. This will be removed later as we don't want to publish all the data all the time.
 
 > Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step02) 
 

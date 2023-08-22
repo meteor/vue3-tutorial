@@ -25,7 +25,7 @@ watch(
 subscribe('tasks');
 const tasks = autorun(() => {
   return TasksCollection.find(
-    hideCompleted.value ? { checked: { $ne: true } } : {},
+    hideCompleted.value ? { checked: { $ne: true }, userId: user.value } : {},
     {
       sort: { createdAt: -1 },
     },
@@ -50,7 +50,7 @@ const toggleHideCompleted = () => {
         🚀 To-Do List
         <span
           v-if="incompleteTasksCount > 0"
-          class="text-sm font-light text-gray-600"
+          class="text-lg font-light text-gray-600"
         >
           ({{ incompleteTasksCount }})</span
         >

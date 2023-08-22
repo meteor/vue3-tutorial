@@ -1,5 +1,5 @@
 ---
-title: "10: Running on Mobile"
+title: "8: Running on Mobile"
 ---
 
 Currently, Meteor on Windows does not support mobile builds. If you are using Meteor on Windows, you should skip this step.
