@@ -68,7 +68,7 @@ And, Task.vue:
 </template>
 ```
 
-Also choose a better title for your app, Meteor is amazing, but you don't want to see `Todo List` in your app top bar all the time.
+Also choose a better title for your app. You can write what you want. In this tutorial we will use "🚀 To-Do List".
 
 You could choose something like:
 

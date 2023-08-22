@@ -38,9 +38,10 @@ const toggleHideCompleted = () => {
       🚀 To-Do List
       <span
         v-if="incompleteTasksCount > 0"
-        class="text-sm font-light text-gray-600"
-        >({{ incompleteTasksCount }})</span
+        class="text-lg font-light text-gray-600"
       >
+        ({{ incompleteTasksCount }})
+      </span>
     </h1>
   </header>
   <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">

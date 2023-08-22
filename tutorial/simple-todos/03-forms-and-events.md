@@ -72,7 +72,7 @@ const tasks = autorun(() => TasksCollection.find({}).fetch()).result
 
 Now you can edit the `addTask` function to insert a new task into the database. To do it, we will need to implement Methods.
 
-Methods are basically RPC calls to the server, that allow you to execute some operation on the server side, in a secure way. We will talk more about it on step-08, but you can read more about Meteor Methods [here](https://guide.meteor.com/methods.html).
+Methods are basically RPC calls to the server, that allow you to execute some operation on the server side, in a secure way. But you can read more about Meteor Methods [here](https://guide.meteor.com/methods.html).
 
 To create your methods, you need to create a file called `tasksMethods.js`.
 

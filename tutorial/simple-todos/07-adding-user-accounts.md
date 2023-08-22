@@ -136,7 +136,7 @@ Then, we can wrap our user functionality in a `<div>` tag and add in the `v-if` 
   <div v-if="isLogged">
     <header class="flex items-center justify-between px-4 py-4 bg-gray-100 border-t border-b border-gray-200">
       <h1 class="text-4xl font-bold text-gray-800 my-4">🚀 To-Do List
-        <span v-if="incompleteTasksCount > 0" class="text-sm font-light text-gray-600">({{ incompleteTasksCount }})</span>
+        <span v-if="incompleteTasksCount > 0" class="text-lg font-light text-gray-600">({{ incompleteTasksCount }})</span>
       </h1>
     </header>
     <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
@@ -251,7 +251,7 @@ watch(
 subscribe('tasks')
 const tasks = autorun(() => {
     return TasksCollection.find(
-    hideCompleted.value ? { checked: { $ne: true } } : {},
+    hideCompleted.value ? { checked: { $ne: true }, userId: user.value } : {},
     {
       sort: { createdAt: -1 },
     }
@@ -286,7 +286,7 @@ const logout = () => Meteor.logout()
 ...
 
 <h1 class="text-4xl font-bold text-gray-800 my-4">🚀 To-Do List
-  <span v-if="incompleteTasksCount > 0" class="text-sm font-light text-gray-600">({{ incompleteTasksCount }})</span>
+  <span v-if="incompleteTasksCount > 0" class="text-lg font-light text-gray-600">({{ incompleteTasksCount }})</span>
 </h1>
 
 <button
@@ -308,6 +308,56 @@ if (!this.userId) {
     }
 ```
 
+Follow how your `tasksMethods` should look like:
+`/imports/api/tasksMethods.js`
+```javascript
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
+import { TasksCollection } from '../db/TasksCollection';
+
+Meteor.methods({
+  'tasks.insert'(text) {
+    check(text, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('Not authorized.');
+    }
+
+    TasksCollection.insert({
+      text,
+      createdAt: new Date(),
+      userId: this.userId,
+    });
+  },
+
+  'tasks.remove'(taskId) {
+    check(taskId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('Not authorized.');
+    }
+
+    TasksCollection.remove(taskId);
+  },
+
+  'tasks.setIsChecked'(taskId, checked) {
+    check(taskId, String);
+    check(checked, Boolean);
+
+    if (!this.userId) {
+      throw new Meteor.Error('Not authorized.');
+    }
+
+    TasksCollection.update(taskId, {
+      $set: {
+        checked,
+      },
+    });
+  },
+});
+
+```
+
 Phew! You have done quite a lot in this step. Authenticated the user, set the user in the tasks and provided a way for the user to log out.
 
 Your app should look like this:
@@ -318,5 +368,3 @@ Your app should look like this:
 At this point you probably can try to explore more the app and add a register form by your own. You already know how to menage refs, insert datas, and create components. But feel free to just keep following the tutorial and add the register form later.
 
 > Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step07) 
-
-In the next step we are going to start using Methods to only change the data after checking some conditions.
