@@ -1,5 +1,5 @@
 ---
-title: '11: Testing'
+title: '9: Testing'
 ---
 
 Now we've created a few features for our application, let's add a test to ensure that we don't regress and that it works the way we expect.

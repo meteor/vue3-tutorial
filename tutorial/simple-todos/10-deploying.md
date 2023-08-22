@@ -1,5 +1,5 @@
 ---
-title: '12: Deploying'
+title: '10: Deploying'
 ---
 
 Now your app is tested and ready to be published so anyone can use it.
