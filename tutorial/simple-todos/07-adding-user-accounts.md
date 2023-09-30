@@ -365,7 +365,7 @@ Your app should look like this:
 <img class="step-images" src="/simple-todos/assets/new-screenshots/step07/login-page.png"/>
 <img class="step-images" src="/simple-todos/assets/new-screenshots/step07/logged-page.png"/>
 
-At this point you probably can try to explore more the app and add a register form by your own. You already know how to menage refs, insert datas, and create components. But feel free to just keep following the tutorial and add the register form later.
+At this point you probably can try to explore more the app and add a register form by your own. You already know how to manage refs, insert datas, and create components. But feel free to just keep following the tutorial and add the register form later.
 
 > Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step07) 
 
