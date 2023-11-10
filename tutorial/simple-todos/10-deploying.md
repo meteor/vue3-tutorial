@@ -108,6 +108,6 @@ And, of course, be able to access and use your app in the domain that you chose,
 
 This is huge, you have your Meteor app running on Galaxy, ready to be used by anyone in the world!
 
-> Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step12) 
+> Review: you can check how your code should be in the end of this step [here](https://github.com/meteor/vue3-tutorial/tree/master/src/simple-todos/step10) 
 
 In the next step we are going to provide some ideas for you to continue developing your app and more content to see next.
