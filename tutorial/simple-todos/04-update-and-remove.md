@@ -14,6 +14,19 @@ Now, we need to add the v-model directive to the checkbox. This will allow us to
 
 `imports/ui/components/Task.vue`
 ```javascript
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true,
+  },
+});
+
+const taskRef = ref(props.task);
+</script>
+
 <template>
   <div class="flex items-center rounded px-4 py-2 mb-2">
     <li>
