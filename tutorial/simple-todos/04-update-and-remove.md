@@ -12,8 +12,20 @@ First, you need to add a `checkbox` element to your `Task` component.
 
 Now, we need to add the v-model directive to the checkbox. This will allow us to bind the value of the checkbox to the `checked` field of the task document.
 
+To do this, we need to add a `ref` to the task document. This will allow us to access the task document in the template.
+
 `imports/ui/components/Task.vue`
 ```javascript
+<script setup>
+  import { ref } from 'vue';
+
+  const props = defineProps({
+  task: Object,
+});
+
+const taskRef = ref(props.task);
+</script>
+
 <template>
   <div class="flex items-center rounded px-4 py-2 mb-2">
     <li>
@@ -31,6 +43,7 @@ Now, we need to add the v-model directive to the checkbox. This will allow us to
 
 Before change the UI, we need to implement the method to update the task document. So, update the `tasksMethods.js` file with the following code:
 
+`imports/api/tasksMethods.js`
 ```javascript
 import { Meteor } from 'meteor/meteor';
 
@@ -71,7 +84,7 @@ Now you can update your task document toggling its `checked` field.
 
 You need to add a `watch` to the `checked` field of the task document. This will allow us to update the task document when the checkbox is toggled.
 
-We also have a prop called `task` that is passed to the component. This prop is an object that represents the task document. We can use this prop to initialize a `ref` that will be used to watch the `checked` field.
+We also have a prop called `task` that is passed to the component. This prop is an object that represents the task document. We can use this prop to watch the `checked` field of the task document.
 
 `imports/ui/components/Task.vue`
 ```javascript
